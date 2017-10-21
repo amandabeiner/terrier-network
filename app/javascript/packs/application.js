@@ -26,6 +26,7 @@ import ProfileContainer       from '../react/subApps/UserProfile/containers/Prof
 
 import currentUser from '../react/sharedResources/reducers/currentUser'
 import notices     from '../react/sharedResources/reducers/notices'
+import profile     from '../react/subApps/UserProfile/reducers/profile'
 
 const history = createBrowserHistory()
 
@@ -36,7 +37,8 @@ const store = createStore(
     currentUser,
     notices,
     form: formReducer,
-    router: routerReducer
+    router: routerReducer,
+    profile,
   }),
   applyMiddleware(...middlewares)
 )
