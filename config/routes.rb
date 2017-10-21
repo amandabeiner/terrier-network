@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :account_confirmations, only: [:create]
       resources :password_resets, only: [:create, :update]
       resources :sessions, only: [:create, :destroy]
-      resources :profiles, only: [:show, :create]
+      resources :profiles, only: [:show, :create, :update]
       resources :users, only: [:create, :update] do
         collection do
           resources :current, only: :index

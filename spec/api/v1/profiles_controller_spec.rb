@@ -54,5 +54,26 @@ describe Api::V1::ProfilesController, type: :controller do
       expect(json_parsed_response["error"]).to eq({"email"=> ["You must have an active BU email address to register."]})
     end
   end
+
+  describe "PATCH #udpate" do 
+    let!(:profile) { FactoryGirl.create(:profile) }
+
+    it "returns the edited profile as JSON when the params are correct" do
+      patch :update, params: { id: profile.id, email: "newEmail@bu.edu" }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to eq("application/json")
+      expect(json_parsed_response.keys).to eq ["id", "email", "first_name", "last_name", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response["email"]).to eq "newEmail@bu.edu"
+    end
+
+    it "returns errors when the params are not correct" do
+      patch :update, params: { id: profile.id, email: "" }
+
+      expect(response).to have_http_status :unprocessable_entity
+      expect(json_parsed_response.keys).to eq ["error"]
+      expect(json_parsed_response["error"]).to eq({"email" => ["can't be blank", "You must have an active BU email address to register."]}) 
+    end
+  end 
 end
 
