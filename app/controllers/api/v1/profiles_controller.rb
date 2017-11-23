@@ -1,4 +1,8 @@
 class Api::V1::ProfilesController < Api::ApiController
+  def index
+    render json: Profile.all 
+  end
+
   def show
     profile = Profile.find(params[:id])
 
