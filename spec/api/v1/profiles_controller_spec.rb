@@ -19,6 +19,21 @@ describe Api::V1::ProfilesController, type: :controller do
       contact_permissions: "public"
     }
   }
+
+  describe "GET #index" do 
+    let!(:profile1) { FactoryGirl.create(:profile) }
+    let!(:profile2) { FactoryGirl.create(:profile) }
+    it "should return a json representation of all the events in the database" do
+      get :index
+
+      expect(response.content_type).to eq("application/json")
+      expect(response.code).to eq("200")
+      expect(json_parsed_response).to be_an_instance_of(Array)
+      expect(json_parsed_response[0]["id"]).to eq(profile1.id)
+      expect(json_parsed_response[1]["id"]).to eq(profile2.id)
+    end
+  end
+
   describe "GET #show" do
     let!(:profile) { FactoryGirl.create(:profile) }
 
