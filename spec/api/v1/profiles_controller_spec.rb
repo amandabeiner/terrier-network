@@ -88,7 +88,7 @@ describe Api::V1::ProfilesController, type: :controller do
       expect(json_parsed_response["id"]).to eq profile.id
     end
 
-    it "succdssfully deletes a product" do
+    it "successfully deletes a product" do
       expect { delete :destroy, params: { id: profile.id } }.to change { Profile.count}.by -1
 
     end
