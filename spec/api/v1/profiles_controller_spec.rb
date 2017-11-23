@@ -72,8 +72,26 @@ describe Api::V1::ProfilesController, type: :controller do
 
       expect(response).to have_http_status :unprocessable_entity
       expect(json_parsed_response.keys).to eq ["error"]
-      expect(json_parsed_response["error"]).to eq({"email" => ["can't be blank", "You must have an active BU email address to register."]}) 
+      expect(json_parsed_response["error"]).to eq({"email" => ["can't be blank", "You must have an active BU email address to register."]})
     end
   end 
+
+  describe "DELETE #destroy" do 
+    let!(:profile) { FactoryGirl.create(:profile) }
+
+    it "returns the deleted profile as JSON" do
+      delete :destroy, params: { id: profile.id }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to eq("application/json")
+      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response["id"]).to eq profile.id
+    end
+
+    it "succdssfully deletes a product" do
+      expect { delete :destroy, params: { id: profile.id } }.to change { Profile.count}.by -1
+
+    end
+  end
 end
 
