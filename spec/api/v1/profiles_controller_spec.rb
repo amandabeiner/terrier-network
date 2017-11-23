@@ -90,7 +90,6 @@ describe Api::V1::ProfilesController, type: :controller do
 
     it "successfully deletes a product" do
       expect { delete :destroy, params: { id: profile.id } }.to change { Profile.count}.by -1
-
     end
   end
 end
