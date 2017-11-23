@@ -25,6 +25,12 @@ class Api::V1::ProfilesController < Api::ApiController
     end
   end
 
+  def destroy 
+    profile = Profile.find(params[:id])
+    profile.destroy
+    render json: profile
+  end
+
   private 
 
   def create_params
