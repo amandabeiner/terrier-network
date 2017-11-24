@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  EMAIL_REGEXP = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
-  HANDLE_REGEXP = /\A[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*\z/
+  has_many :friendships
+  has_many :friends, through: :friendships
 
+  EMAIL_REGEXP = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
   attr_accessor :confirmation_token, :password_reset_token, :remember_token
 
   before_create :generate_confirmation_digest
@@ -9,13 +10,9 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  scope :by_handle, -> { order(:handle) }
-
   validates_format_of :email, with: EMAIL_REGEXP
-  validates_format_of :handle, with: HANDLE_REGEXP
-  validates_length_of :handle, in: 3..30
-  validates_presence_of :email, :first_name, :handle, :last_name
-  validates_uniqueness_of :email, :handle
+  validates_presence_of :email, :first_name, :last_name
+  validates_uniqueness_of :email
 
   def authenticated?(attribute, token)
     digest = self.send("#{attribute}_digest")
@@ -47,10 +44,6 @@ class User < ApplicationRecord
   def generate_reset_digest
     self.password_reset_token = User.new_token
     update_attributes(password_reset_digest: User.digest(password_reset_token), password_reset_sent_at: Time.current)
-  end
-
-  def label
-    "#{full_name} (#{handle})"
   end
 
   def locked?

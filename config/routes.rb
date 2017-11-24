@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :password_resets, only: [:create, :update]
       resources :sessions, only: [:create, :destroy]
       resources :profiles, except: [:new, :edit]
+      resources :friendships
       resources :users, only: [:create, :update] do
         collection do
           resources :current, only: :index

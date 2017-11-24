@@ -42,7 +42,7 @@ describe Api::V1::ProfilesController, type: :controller do
       
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to eq("application/json")
-      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company", "user_id"]
       expect(json_parsed_response["id"]).to eq profile.id  
     end
   end
@@ -58,7 +58,7 @@ describe Api::V1::ProfilesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq("application/json")
 
-      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company", "user_id"]
     end
 
     it "returns an error when the payload is incorrect" do
@@ -78,7 +78,7 @@ describe Api::V1::ProfilesController, type: :controller do
 
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to eq("application/json")
-      expect(json_parsed_response.keys).to eq ["id", "email", "first_name", "last_name", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response.keys).to eq ["id", "email", "first_name", "last_name", "role", "contact_permissions", "phone", "position", "company", "user_id"]
       expect(json_parsed_response["email"]).to eq "newEmail@bu.edu"
     end
 
@@ -99,7 +99,7 @@ describe Api::V1::ProfilesController, type: :controller do
 
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to eq("application/json")
-      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company"]
+      expect(json_parsed_response.keys).to eq ["id", "first_name", "last_name", "email", "role", "contact_permissions", "phone", "position", "company", "user_id"]
       expect(json_parsed_response["id"]).to eq profile.id
     end
 
