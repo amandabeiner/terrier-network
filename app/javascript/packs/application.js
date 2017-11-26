@@ -22,9 +22,11 @@ import RequestPasswordReset   from '../react/subApps/userAuthenticator/connector
 import SignIn                 from '../react/subApps/userAuthenticator/connectors/SignIn'
 import SignOut                from '../react/subApps/userAuthenticator/connectors/SignOut'
 import SignUp                 from '../react/subApps/userAuthenticator/connectors/SignUp'
+import ProfileContainer       from '../react/subApps/UserProfile/containers/ProfileContainer'
 
 import currentUser from '../react/sharedResources/reducers/currentUser'
 import notices     from '../react/sharedResources/reducers/notices'
+import profile     from '../react/subApps/UserProfile/reducers/profile'
 
 const history = createBrowserHistory()
 
@@ -35,7 +37,8 @@ const store = createStore(
     currentUser,
     notices,
     form: formReducer,
-    router: routerReducer
+    router: routerReducer,
+    profile,
   }),
   applyMiddleware(...middlewares)
 )
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <Route exact path='/sign-in' component={SignIn} />
               <Route exact path='/sign-out' component={SignOut} />
               <Route exact path='/sign-up' component={SignUp} />
+              <Route exact path='/users/:id' component={ProfileContainer} />
             </div>
           </ConnectedRouter>
         </Provider>,
