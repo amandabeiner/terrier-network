@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProfileImage from './ProfileImage';
 import NameHeader from './NameHeader';
 import PositionHeader from './PositionHeader';
+import HeaderIcons from './HeaderIcons';
 
 const ProfileLayout = ({ profile }) => {
   const HeroContainer = styled.div`
@@ -14,7 +15,7 @@ const ProfileLayout = ({ profile }) => {
     position: relative;
     z-index: 0;
 
-    @media(min-width: 669px){
+    @media(min-width: 1000px){
       top: 5rem;
       height: 15rem;
     }
@@ -39,6 +40,7 @@ const ProfileLayout = ({ profile }) => {
           <PositionHeader positionText={profile.position}></PositionHeader>
           <PositionHeader positionText={profile.company}></PositionHeader>
         </TextDiv>
+        <HeaderIcons />
       </HeroContainer>
     </div>
   )
